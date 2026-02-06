@@ -1,0 +1,22 @@
+{
+  "setting": {
+    "urlCheck": false,
+    "bigPackageSizeSupport": false,
+    "compileHotReLoad": true,
+    "coverView": false,
+    "lazyloadPlaceholderEnable": false,
+    "skylineRenderEnable": true,
+    "preloadBackgroundData": false,
+    "autoAudits": false,
+    "useApiHook": true,
+    "showShadowRootInWxmlPanel": false,
+    "useStaticServer": false,
+    "useLanDebug": false,
+    "showES6CompileOption": false,
+    "checkInvalidKey": true,
+    "ignoreDevUnusedFiles": true
+  },
+  "libVersion": "3.14.0",
+  "condition": {},
+  "projectname": "AI%E6%99%BA%E8%83%BD%E4%BD%93"
+}
