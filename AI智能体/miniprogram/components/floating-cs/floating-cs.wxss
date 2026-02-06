@@ -1,0 +1,68 @@
+.cs-float-area {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
+  pointer-events: none;
+}
+
+.cs-float {
+  width: 184rpx;
+  height: 92rpx;
+  pointer-events: auto;
+}
+
+.cs-float-inner {
+  width: 184rpx;
+  height: 92rpx;
+  border-radius: 999rpx;
+  background: linear-gradient(135deg, #0284c7 0%, #6366f1 60%, #ec4899 100%);
+  box-shadow: 0 18rpx 50rpx rgba(2, 132, 199, 0.22);
+  border: 2rpx solid rgba(255, 255, 255, 0.65);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  position: relative;
+}
+
+.cs-float-badge {
+  position: absolute;
+  top: -10rpx;
+  left: -10rpx;
+  height: 40rpx;
+  min-width: 40rpx;
+  padding: 0 12rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.92);
+  color: #0f172a;
+  font-size: 20rpx;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10rpx 26rpx rgba(15, 23, 42, 0.12);
+}
+
+.cs-float-icon {
+  font-size: 36rpx;
+  color: #fff;
+  line-height: 1;
+}
+
+.cs-float-text {
+  font-size: 22rpx;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.95);
+  letter-spacing: 0.5rpx;
+  line-height: 1;
+}
+
+.cs-float-inner:active {
+  transform: scale(0.98);
+}
+
+

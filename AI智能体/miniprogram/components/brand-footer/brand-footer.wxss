@@ -1,0 +1,53 @@
+.brand-footer {
+  padding: 48rpx 40rpx 56rpx;
+  background: #ffffff;
+  border-top: 2rpx solid #f1f5f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.brand-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10rpx;
+}
+
+.brand-logo {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 10rpx;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+  align-items: center;
+}
+
+.brand-name {
+  font-size: 28rpx;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.brand-subtitle {
+  font-size: 22rpx;
+  color: #64748b;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.brand-copyright {
+  font-size: 20rpx;
+  color: #94a3b8;
+  text-align: center;
+}
+
+

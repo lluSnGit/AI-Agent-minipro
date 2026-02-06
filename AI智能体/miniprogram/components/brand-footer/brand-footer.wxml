@@ -1,0 +1,12 @@
+<view class="brand-footer">
+  <view class="brand-row">
+    <image class="brand-logo" src="/images/logo.png" mode="aspectFit" />
+    <view class="brand-text">
+      <text class="brand-name">星瀚云链数字科技</text>
+      <text class="brand-subtitle">国家级高新技术企业 · 科技型中小企业</text>
+    </view>
+  </view>
+  <text class="brand-copyright">© 2024 星瀚云链数字科技 版权所有</text>
+</view>
+
+

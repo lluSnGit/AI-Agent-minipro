@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "service-card": "/components/service-card/service-card",
+    "footer": "/components/footer/footer",
+    "floating-cs": "/components/floating-cs/floating-cs"
+  }
+}

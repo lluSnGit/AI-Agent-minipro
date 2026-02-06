@@ -1,0 +1,104 @@
+<view class="container">
+  <!-- 图片上传区域 -->
+  <view class="image-upload-section">
+    <view class="image-label">输入图片 *</view>
+    <view class="image-upload-box" bindtap="chooseImage">
+      <image wx:if="{{image}}" class="uploaded-image" src="{{image}}" mode="aspectFit" />
+      <view wx:else class="upload-placeholder">
+        <text class="upload-icon">📷</text>
+        <text class="upload-text">点击选择图片</text>
+      </view>
+    </view>
+    <button wx:if="{{image}}" class="remove-btn" bindtap="removeImage">移除</button>
+  </view>
+
+  <!-- 输入区域 -->
+  <view class="input-section">
+    <view class="input-label">提示词 *</view>
+    <textarea 
+      class="prompt-input" 
+      placeholder="例如：生成九宫格多角度图片"
+      value="{{prompt}}"
+      bindinput="onPromptInput"
+      maxlength="500"
+      show-confirm-bar="{{false}}"
+    />
+    <view class="char-count">{{prompt.length}}/500</view>
+  </view>
+
+  <!-- 高级选项 -->
+  <view class="input-section">
+    <view class="input-label">负面提示词（可选）</view>
+    <textarea 
+      class="prompt-input" 
+      placeholder="例如：broken image, split view, grid, multiple angles, frame, border, black bar"
+      value="{{negativePrompt}}"
+      bindinput="onNegativePromptInput"
+      maxlength="500"
+      show-confirm-bar="{{false}}"
+    />
+    <view class="char-count">{{negativePrompt.length}}/500</view>
+  </view>
+
+  <view class="input-section">
+    <view class="input-label">随机种子（可选）</view>
+    <input 
+      class="seed-input" 
+      type="number"
+      placeholder="留空则随机生成"
+      value="{{seed}}"
+      bindinput="onSeedInput"
+    />
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-section">
+    <button 
+      class="generate-btn {{loading ? 'loading' : ''}}" 
+      bindtap="onGenerate"
+      disabled="{{loading || !imagePath || prompt.length === 0}}"
+    >
+      {{loading ? '生成中...' : '生成九宫格图'}}
+    </button>
+  </view>
+
+  <!-- 结果展示区域 -->
+  <view class="result-section" wx:if="{{generatedImages.length > 0}}">
+    <view class="result-title">生成的九宫格图（共{{generatedImages.length}}张）</view>
+    <view class="grid-container">
+      <view 
+        class="grid-item" 
+        wx:for="{{generatedImages}}" 
+        wx:key="node_id"
+        wx:for-index="index"
+        bindtap="previewImage"
+        data-index="{{index}}"
+      >
+        <image 
+          class="grid-image" 
+          src="{{item.url}}" 
+          mode="aspectFill"
+        />
+        <view class="grid-overlay">
+          <text class="grid-index">{{index + 1}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="result-actions">
+      <button class="action-btn" bindtap="saveAllImages">保存所有图片</button>
+      <button class="action-btn" bindtap="regenerate">重新生成</button>
+    </view>
+  </view>
+
+  <!-- 错误提示 -->
+  <view class="error-message" wx:if="{{errorMessage}}">
+    {{errorMessage}}
+  </view>
+</view>
+
+<!-- 底部品牌展示（不影响功能） -->
+<brand-footer />
+
+<!-- 全局可拖动客服悬浮按钮 -->
+<floating-cs />
+

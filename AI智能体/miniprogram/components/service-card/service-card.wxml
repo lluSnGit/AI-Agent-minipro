@@ -1,0 +1,7 @@
+<view class="card" bindtap="onTap">
+  <view class="card-image" style="background-image: url({{image}})"></view>
+  <view class="card-content">
+    <text class="card-title">{{title}}</text>
+    <text class="card-desc">{{description}}</text>
+  </view>
+</view>

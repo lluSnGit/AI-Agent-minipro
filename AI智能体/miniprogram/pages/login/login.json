@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "登录",
+  "usingComponents": {
+    "floating-cs": "/components/floating-cs/floating-cs"
+  }
+}
+
+

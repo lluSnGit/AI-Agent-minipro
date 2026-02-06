@@ -1,0 +1,192 @@
+<scroll-view class="page" scroll-y enhanced show-scrollbar="{{false}}">
+  <!-- Hero Section -->
+  <view class="hero-section">
+    <view class="bg-grid-pattern"></view>
+    <view class="hero-bg-ball-1"></view>
+    <view class="hero-bg-ball-2"></view>
+
+    <view class="hero-content">
+      <view class="hero-title">
+        <text class="title-main">openclaw</text>
+        <text class="title-gradient">AI智能体驱动的增长引擎</text>
+      </view>
+
+      <text class="hero-desc">从市场洞察到客户服务，从流程自动化到决策辅助。专注于AI智能体开发搭建平台，让AI智能体成为企业增长的核心动力。</text>
+    </view>
+
+    <!-- Hero Visual -->
+    <view class="hero-visual">
+      <view class="visual-card">
+        <view class="hero-image" style="background-image: url(/images/open.jpg)"></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- Core Scenarios Section -->
+  <view class="scenarios-section">
+    <view class="section-header">
+      <text class="section-title">核心业务场景</text>
+      <text class="section-desc">openclaw 深入业务痛点，通过四大核心技能矩阵，全方位赋能企业数字化转型。</text>
+    </view>
+
+    <view class="scenarios-grid">
+      <view class="scenario-card" wx:for="{{scenarios}}" wx:key="id">
+        <view class="scenario-header">
+          <view class="scenario-icon {{item.iconClass}}">{{item.icon}}</view>
+          <view class="scenario-tag {{item.tagClass}}">{{item.tag}}</view>
+        </view>
+        <text class="scenario-title">{{item.title}}</text>
+        <text class="scenario-desc">{{item.description}}</text>
+        <view class="scenario-skills">
+          <text class="skills-label">典型技能举例</text>
+          <view class="skills-list">
+            <text class="skill-item" wx:for="{{item.skills}}" wx:for-item="skill" wx:key="*this">{{skill}}</text>
+          </view>
+        </view>
+        <view class="scenario-example {{item.exampleClass}}">
+          <text class="example-icon">✨</text>
+          <view class="example-content">
+            <text class="example-title">它能做什么？</text>
+            <text class="example-desc">{{item.example}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- Logic & Value Section -->
+  <view class="logic-section">
+    <view class="logic-left">
+      <text class="logic-title">核心价值与</text>
+      <text class="logic-title-gradient">操作逻辑</text>
+      <text class="logic-desc">openclaw 不仅仅是一个工具，它是您团队中不知疲倦的数字员工。通过自然语言交互，即可驱动复杂的业务流程。</text>
+      <view class="logic-steps">
+        <view class="step-item" wx:for="{{steps}}" wx:key="num">
+          <view class="step-num">{{item.num}}</view>
+          <view class="step-content">
+            <text class="step-title">{{item.title}}</text>
+            <text class="step-desc">{{item.desc}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="logic-right">
+      <view class="value-card">
+        <view class="value-header">
+          <text class="value-icon">💎</text>
+          <text class="value-title">核心价值总结</text>
+        </view>
+        <view class="value-list">
+          <view class="value-item" wx:for="{{values}}" wx:key="title">
+            <view class="value-item-icon {{item.iconClass}}">{{item.icon}}</view>
+            <view class="value-item-content">
+              <text class="value-item-title">{{item.title}}</text>
+              <text class="value-item-desc">{{item.desc}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- Company Info Section -->
+  <view class="company-section">
+    <view class="company-bg-ball-1"></view>
+    <view class="company-bg-ball-2"></view>
+    <view class="company-content">
+      <view class="company-left">
+        <view class="company-logo">
+          <view class="company-logo-icon">📦</view>
+          <view class="company-logo-text">
+            <text class="company-name">星瀚云链数字科技</text>
+            <text class="company-name-en">Galaxy Cloud Link Digital Technology</text>
+          </view>
+        </view>
+        <text class="company-desc">国家级高新技术企业和科技型中小企业。我们专注 AI 智能体开发搭建平台，致力于让 AI 智能体成为企业的增长引擎。</text>
+        <view class="company-tags">
+          <view class="company-tag">✓ AI 智能体开发</view>
+          <view class="company-tag">✓ 企业级自动化</view>
+          <view class="company-tag">✓ 数据智能决策</view>
+        </view>
+      </view>
+      <view class="company-right">
+        <view class="contact-card">
+          <text class="contact-title">联系我们</text>
+          <view class="contact-form">
+            <input class="contact-input" placeholder="您的姓名" bindinput="onNameInput" value="{{formData.name}}" />
+            <input class="contact-input" placeholder="企业邮箱" bindinput="onEmailInput" value="{{formData.email}}" />
+            <textarea class="contact-textarea" placeholder="咨询需求..." bindinput="onMessageInput" value="{{formData.message}}" />
+            <view class="contact-btn" bindtap="onSubmitForm">提交咨询</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- Footer -->
+  <view class="page-footer">
+    <text class="footer-text">© 2024 星瀚云链数字科技. All rights reserved.</text>
+  </view>
+
+  <!-- 开始体验按钮 -->
+  <view class="start-button" bindtap="onStartTap">
+    <text class="start-button-text">开始体验 AI 智能体</text>
+  </view>
+</scroll-view>
+
+<!-- 聊天界面弹窗 -->
+<view class="chat-modal {{showChat ? 'show' : ''}}" catchtouchmove="preventTouchMove">
+  <view class="chat-container">
+    <!-- 聊天头部 -->
+    <view class="chat-header">
+      <text class="chat-title">AI 智能体助手</text>
+      <view class="chat-close" bindtap="onCloseChat">
+        <text class="close-icon">✕</text>
+      </view>
+    </view>
+
+    <!-- 聊天消息列表 -->
+    <scroll-view 
+      class="chat-messages" 
+      scroll-y 
+      scroll-top="{{chatScrollTop}}"
+      scroll-into-view="{{chatMessages.length > 0 ? 'msg-' + (chatMessages.length - 1) : ''}}"
+      enhanced
+      show-scrollbar="{{false}}">
+      <view wx:if="{{chatMessages.length === 0}}" class="chat-empty">
+        <text class="empty-text">👋 您好！我是 openclaw AI 智能体助手，有什么可以帮助您的吗？</text>
+      </view>
+      <view 
+        wx:for="{{chatMessages}}" 
+        wx:key="timestamp" 
+        id="msg-{{index}}"
+        class="chat-message {{item.type === 'user' ? 'message-user' : 'message-ai'}}">
+        <view class="message-avatar">
+          <text wx:if="{{item.type === 'user'}}" class="avatar-text">👤</text>
+          <text wx:else class="avatar-text">🤖</text>
+        </view>
+        <view class="message-content">
+          <text class="message-text">{{item.content}}</text>
+        </view>
+      </view>
+    </scroll-view>
+
+    <!-- 输入区域 -->
+    <view class="chat-input-area">
+      <input 
+        class="chat-input" 
+        placeholder="输入您的问题..." 
+        value="{{inputMessage}}"
+        bindinput="onInputChange"
+        confirm-type="send"
+        bindconfirm="onSendMessage"
+        disabled="{{isSending}}" />
+      <view 
+        class="chat-send-btn {{isSending ? 'disabled' : ''}}" 
+        bindtap="onSendMessage">
+        <text wx:if="{{isSending}}" class="send-icon">⏳</text>
+        <text wx:else class="send-icon">➤</text>
+      </view>
+    </view>
+  </view>
+</view>

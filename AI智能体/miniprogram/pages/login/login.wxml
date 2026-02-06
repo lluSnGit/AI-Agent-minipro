@@ -1,0 +1,109 @@
+<view class="container">
+  <view class="login-box">
+    <view class="title">AI智能体登录</view>
+    
+    <!-- 登录方式切换 -->
+    <view class="tab-bar">
+      <view 
+        class="tab-item {{loginType === 'password' ? 'active' : ''}}"
+        bindtap="switchLoginType"
+        data-type="password"
+      >
+        密码登录
+      </view>
+      <view 
+        class="tab-item {{loginType === 'code' ? 'active' : ''}}"
+        bindtap="switchLoginType"
+        data-type="code"
+      >
+        验证码登录
+      </view>
+    </view>
+
+<!-- 全局可拖动客服悬浮按钮 -->
+<floating-cs />
+
+    <!-- 密码登录表单 -->
+    <view class="form-section" wx:if="{{loginType === 'password'}}">
+      <view class="input-group">
+        <text class="label">邮箱</text>
+        <input 
+          class="input" 
+          type="text" 
+          placeholder="请输入邮箱"
+          value="{{email}}"
+          bindinput="onEmailInput"
+        />
+      </view>
+      <view class="input-group">
+        <text class="label">密码</text>
+        <input 
+          class="input" 
+          type="password" 
+          placeholder="请输入密码"
+          value="{{password}}"
+          bindinput="onPasswordInput"
+        />
+      </view>
+      <button 
+        class="login-btn {{loading ? 'loading' : ''}}" 
+        bindtap="onPasswordLogin"
+        disabled="{{loading || !email || !password}}"
+      >
+        {{loading ? '登录中...' : '登录'}}
+      </button>
+    </view>
+
+    <!-- 验证码登录表单 -->
+    <view class="form-section" wx:if="{{loginType === 'code'}}">
+      <view class="input-group">
+        <text class="label">邮箱</text>
+        <input 
+          class="input" 
+          type="text" 
+          placeholder="请输入邮箱"
+          value="{{email}}"
+          bindinput="onEmailInput"
+        />
+      </view>
+      <view class="input-group">
+        <text class="label">验证码</text>
+        <view class="code-input-wrapper">
+          <input 
+            class="input code-input" 
+            type="number" 
+            placeholder="请输入验证码"
+            value="{{code}}"
+            bindinput="onCodeInput"
+            maxlength="6"
+          />
+          <button 
+            class="send-code-btn {{codeCountdown > 0 ? 'disabled' : ''}}"
+            bindtap="onSendCode"
+            disabled="{{codeCountdown > 0 || !email || loading}}"
+          >
+            {{codeCountdown > 0 ? codeCountdown + '秒' : '发送验证码'}}
+          </button>
+        </view>
+      </view>
+      <button 
+        class="login-btn {{loading ? 'loading' : ''}}" 
+        bindtap="onCodeLogin"
+        disabled="{{loading || !email || !code}}"
+      >
+        {{loading ? '登录中...' : '登录'}}
+      </button>
+    </view>
+
+    <!-- 错误提示 -->
+    <view class="error-message" wx:if="{{errorMessage}}">
+      {{errorMessage}}
+    </view>
+
+    <!-- 登录成功提示 -->
+    <view class="success-message" wx:if="{{successMessage}}">
+      {{successMessage}}
+    </view>
+  </view>
+</view>
+

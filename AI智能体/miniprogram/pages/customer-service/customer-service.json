@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "AI 智能客服",
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "floating-cs": "/components/floating-cs/floating-cs",
+    "brand-footer": "/components/brand-footer/brand-footer"
+  }
+}

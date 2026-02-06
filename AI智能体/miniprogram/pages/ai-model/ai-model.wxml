@@ -1,0 +1,133 @@
+<view class="container">
+  <!-- 登录提示 -->
+  <view class="login-tip" wx:if="{{!isLoggedIn}}">
+    <view class="login-tip-content">
+      <text>请先登录或输入Token才能使用AI模特功能</text>
+      <view class="login-options">
+        <button class="login-btn-small" bindtap="goToLogin">去登录</button>
+        <button class="token-btn-small" bindtap="toggleTokenInput">输入Token</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 已登录但可能token无效的提示 -->
+  <view class="login-tip warning" wx:if="{{isLoggedIn && accessToken.length < 50}}">
+    <view class="login-tip-content">
+      <text>当前Token可能无效，建议重新登录</text>
+      <view class="login-options">
+        <button class="login-btn-small" bindtap="goToLogin">重新登录</button>
+        <button class="token-btn-small" bindtap="clearTokenAndRelogin">清除Token</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- Token输入区域 -->
+  <view class="token-section" wx:if="{{showTokenInput}}">
+    <view class="input-label">Access Token</view>
+    <input 
+      class="token-input" 
+      placeholder="请输入Access Token"
+      value="{{accessToken}}"
+      bindinput="onTokenInput"
+    />
+    <view class="token-actions">
+      <button class="save-token-btn" bindtap="onSaveToken">保存Token</button>
+      <text class="token-hint">输入Token后即可使用AI模特功能</text>
+    </view>
+  </view>
+
+  <!-- 输入区域 -->
+  <view class="input-section">
+    <view class="input-label">AI模特描述提示词 *</view>
+    <textarea 
+      class="prompt-input" 
+      placeholder="例如：正面站立，一位亚洲女性模特，长发，面容精致，穿着简约的白色西装套装，全身照，完整展现四肢和服装，纯色背景，背景颜色：浅灰色，工作室灯光，高清摄影，商业摄影"
+      value="{{prompt}}"
+      bindinput="onPromptInput"
+      maxlength="500"
+      show-confirm-bar="{{false}}"
+    />
+    <view class="char-count">{{prompt.length}}/500</view>
+  </view>
+
+  <!-- 高级选项 -->
+  <view class="input-section">
+    <view class="input-label">负面提示词（可选）</view>
+    <textarea 
+      class="prompt-input" 
+      placeholder="例如：低分辨率，色调艳丽，过曝，细节模糊不清，字幕，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，比例不良，多余的手指"
+      value="{{negativePrompt}}"
+      bindinput="onNegativePromptInput"
+      maxlength="500"
+      show-confirm-bar="{{false}}"
+    />
+    <view class="char-count">{{negativePrompt.length}}/500</view>
+  </view>
+
+  <view class="input-section">
+    <view class="input-label">随机种子（可选）</view>
+    <input 
+      class="seed-input" 
+      type="number"
+      placeholder="留空则随机生成"
+      value="{{seed}}"
+      bindinput="onSeedInput"
+    />
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-section">
+    <button 
+      class="generate-btn {{loading ? 'loading' : ''}}" 
+      bindtap="onGenerate"
+      disabled="{{loading || prompt.length === 0 || !isLoggedIn}}"
+    >
+      {{loading ? '生成中...' : '生成AI模特'}}
+    </button>
+  </view>
+
+  <!-- 结果展示区域 -->
+  <view class="result-section" wx:if="{{generatedImage}}">
+    <view class="result-title">生成的AI模特</view>
+    <image 
+      class="result-image" 
+      src="{{generatedImage}}" 
+      mode="aspectFit"
+      bindtap="previewImage"
+    />
+    <view class="result-actions">
+      <button class="action-btn" bindtap="saveImage">保存图片</button>
+      <button class="action-btn" bindtap="regenerate">重新生成</button>
+    </view>
+  </view>
+
+  <!-- 错误提示 -->
+  <view class="error-message" wx:if="{{errorMessage}}">
+    {{errorMessage}}
+  </view>
+
+  <!-- 历史记录 -->
+  <view class="history-section" wx:if="{{history.length > 0}}">
+    <view class="history-title">历史记录</view>
+    <scroll-view class="history-list" scroll-y>
+      <view 
+        class="history-item" 
+        wx:for="{{history}}" 
+        wx:key="id"
+        bindtap="loadHistory"
+        data-index="{{index}}"
+      >
+        <text class="history-prompt">{{item.prompt}}</text>
+        <image class="history-image" src="{{item.image}}" mode="aspectFill" />
+      </view>
+    </scroll-view>
+  </view>
+</view>
+
+<!-- 底部品牌展示（不影响功能） -->
+<brand-footer />
+
+<!-- 全局可拖动客服悬浮按钮 -->
+<floating-cs />
+
+

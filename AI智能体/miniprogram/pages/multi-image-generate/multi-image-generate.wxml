@@ -1,0 +1,189 @@
+<view class="container">
+  <!-- 登录提示 -->
+  <view class="login-tip" wx:if="{{!isLoggedIn}}">
+    <view class="login-tip-content">
+      <text>请先登录或输入Token才能使用多图生成功能</text>
+      <view class="login-options">
+        <button class="login-btn-small" bindtap="goToLogin">去登录</button>
+        <button class="token-btn-small" bindtap="toggleTokenInput">输入Token</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 已登录但可能token无效的提示 -->
+  <view class="login-tip warning" wx:if="{{isLoggedIn && accessToken.length < 50}}">
+    <view class="login-tip-content">
+      <text>当前Token可能无效，建议重新登录</text>
+      <view class="login-options">
+        <button class="login-btn-small" bindtap="goToLogin">重新登录</button>
+        <button class="token-btn-small" bindtap="clearTokenAndRelogin">清除Token</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- Token输入区域 -->
+  <view class="token-section" wx:if="{{showTokenInput}}">
+    <view class="input-label">Access Token</view>
+    <input 
+      class="token-input" 
+      placeholder="请输入Access Token"
+      value="{{accessToken}}"
+      bindinput="onTokenInput"
+    />
+    <view class="token-actions">
+      <button class="save-token-btn" bindtap="onSaveToken">保存Token</button>
+      <text class="token-hint">输入Token后即可使用多图生成功能</text>
+    </view>
+  </view>
+
+  <!-- 图片上传区域 -->
+  <view class="image-upload-section">
+    <view class="image-item">
+      <view class="image-label">图1（主体）*</view>
+      <view class="image-upload-box" bindtap="chooseImage1">
+        <image wx:if="{{image1}}" class="uploaded-image" src="{{image1}}" mode="aspectFit" />
+        <view wx:else class="upload-placeholder">
+          <text class="upload-icon">📷</text>
+          <text class="upload-text">点击选择图片</text>
+        </view>
+      </view>
+      <button wx:if="{{image1}}" class="remove-btn" bindtap="removeImage1">移除</button>
+    </view>
+
+    <view class="image-item">
+      <view class="image-label">图2（物体）*</view>
+      <view class="image-upload-box" bindtap="chooseImage2">
+        <image wx:if="{{image2}}" class="uploaded-image" src="{{image2}}" mode="aspectFit" />
+        <view wx:else class="upload-placeholder">
+          <text class="upload-icon">📷</text>
+          <text class="upload-text">点击选择图片</text>
+        </view>
+      </view>
+      <button wx:if="{{image2}}" class="remove-btn" bindtap="removeImage2">移除</button>
+    </view>
+
+    <view class="image-item">
+      <view class="image-label">图3（背景）*</view>
+      <view class="image-upload-box" bindtap="chooseImage3">
+        <image wx:if="{{image3}}" class="uploaded-image" src="{{image3}}" mode="aspectFit" />
+        <view wx:else class="upload-placeholder">
+          <text class="upload-icon">📷</text>
+          <text class="upload-text">点击选择图片</text>
+        </view>
+      </view>
+      <button wx:if="{{image3}}" class="remove-btn" bindtap="removeImage3">移除</button>
+    </view>
+  </view>
+
+  <!-- 输入区域 -->
+  <view class="input-section">
+    <view class="input-label">图片合成提示词 *</view>
+    <textarea 
+      class="prompt-input" 
+      placeholder="例如：图1中的主体抱着图2的物体，悠闲的坐在图3的背景上"
+      value="{{prompt}}"
+      bindinput="onPromptInput"
+      maxlength="500"
+      show-confirm-bar="{{false}}"
+      disabled="{{!isLoggedIn}}"
+    />
+    <view class="char-count">{{prompt.length}}/500</view>
+  </view>
+
+  <!-- 高级选项 -->
+  <view class="input-section">
+    <view class="input-label">负面提示词（可选）</view>
+    <textarea 
+      class="prompt-input" 
+      placeholder="例如：worst quality, low quality"
+      value="{{negativePrompt}}"
+      bindinput="onNegativePromptInput"
+      maxlength="500"
+      show-confirm-bar="{{false}}"
+      disabled="{{!isLoggedIn}}"
+    />
+    <view class="char-count">{{negativePrompt.length}}/500</view>
+  </view>
+
+  <view class="input-section">
+    <view class="input-label">随机种子（可选）</view>
+    <input 
+      class="seed-input" 
+      type="number"
+      placeholder="留空则随机生成"
+      value="{{seed}}"
+      bindinput="onSeedInput"
+      disabled="{{!isLoggedIn}}"
+    />
+  </view>
+
+  <!-- 视频生成选项 -->
+  <view class="input-section">
+    <view class="checkbox-wrapper">
+      <checkbox checked="{{generateVideo}}" bindchange="toggleGenerateVideo" disabled="{{!isLoggedIn}}" />
+      <text class="checkbox-label">生成视频</text>
+    </view>
+    <textarea 
+      wx:if="{{generateVideo}}"
+      class="prompt-input" 
+      placeholder="视频生成提示词（生成视频时必填）"
+      value="{{videoPrompt}}"
+      bindinput="onVideoPromptInput"
+      maxlength="500"
+      show-confirm-bar="{{false}}"
+      disabled="{{!isLoggedIn}}"
+    />
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-section">
+    <button 
+      class="generate-btn {{loading ? 'loading' : ''}}" 
+      bindtap="onGenerate"
+      disabled="{{loading || !isLoggedIn || !image1Path || !image2Path || !image3Path || prompt.length === 0 || (generateVideo && videoPrompt.length === 0)}}"
+    >
+      {{loading ? '生成中...' : '生成图片'}}
+    </button>
+  </view>
+
+  <!-- 结果展示区域 -->
+  <view class="result-section" wx:if="{{generatedImage}}">
+    <view class="result-title">生成的图片</view>
+    <image 
+      class="result-image" 
+      src="{{generatedImage}}" 
+      mode="aspectFit"
+      bindtap="previewImage"
+    />
+    <view class="result-actions">
+      <button class="action-btn" bindtap="saveImage">保存图片</button>
+      <button class="action-btn" bindtap="regenerate">重新生成</button>
+    </view>
+  </view>
+
+  <!-- 视频展示区域 -->
+  <view class="result-section" wx:if="{{generatedVideo}}">
+    <view class="result-title">生成的视频</view>
+    <video 
+      class="result-video" 
+      src="{{generatedVideo}}" 
+      controls
+      show-center-play-btn
+    />
+    <view class="result-actions">
+      <button class="action-btn" bindtap="saveVideo">保存视频</button>
+    </view>
+  </view>
+
+  <!-- 错误提示 -->
+  <view class="error-message" wx:if="{{errorMessage}}">
+    {{errorMessage}}
+  </view>
+</view>
+
+<!-- 底部品牌展示（不影响功能） -->
+<brand-footer />
+
+<!-- 全局可拖动客服悬浮按钮 -->
+<floating-cs />
+

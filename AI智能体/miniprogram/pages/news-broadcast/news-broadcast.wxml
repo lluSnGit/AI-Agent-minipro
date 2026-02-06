@@ -1,0 +1,163 @@
+<!-- AI新闻视频生成页面 -->
+<view class="page-container">
+  <!-- Hero Section -->
+  <view class="hero-section">
+    <!-- 背景光晕 -->
+    <view class="bg-blob bg-blob-1"></view>
+    <view class="bg-blob bg-blob-2"></view>
+
+    <view class="hero-content">
+      <!-- 标签 -->
+      <view class="tag-badge">
+        <view class="tag-dot"></view>
+        <text class="tag-text">AI 智能体驱动的增长引擎</text>
+      </view>
+
+      <!-- 主标题 -->
+      <view class="hero-title">
+        <text class="title-main">AI新闻视频生成</text>
+        <text class="title-gradient">你的24小时自动热点引擎</text>
+      </view>
+
+      <!-- 描述 -->
+      <view class="hero-desc">
+        <text>从市场洞察到客户服务，从流程自动化到决策辅助。</text>
+        <text>星瀚云链，专注AI智能体开发搭建平台。</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 核心优势 -->
+  <view class="section advantages-section">
+    <view class="section-header">
+      <view class="section-bar"></view>
+      <text class="section-title">核心优势</text>
+    </view>
+
+    <view class="cards-container">
+      <view class="glass-card">
+        <view class="card-icon icon-blue"><text>📈</text></view>
+        <view class="card-content">
+          <text class="card-title">流量稳，不断更</text>
+          <text class="card-desc">每日定时更新视频，保持账号活跃，稳定获取流量，杜绝因断更导致的粉丝流失。</text>
+        </view>
+      </view>
+      <view class="glass-card">
+        <view class="card-icon icon-indigo"><text>⚡</text></view>
+        <view class="card-content">
+          <text class="card-title">追热点，快如闪电</text>
+          <text class="card-desc">AI自动抓取当日最新热点，即时生成视频。让你永远快人一步，不错过任何流量风口。</text>
+        </view>
+      </view>
+      <view class="glass-card">
+        <view class="card-icon icon-cyan"><text>✨</text></view>
+        <view class="card-content">
+          <text class="card-title">省心力，彻底解放</text>
+          <text class="card-desc">从脚本、素材到剪辑、发布，全流程自动化。无需你再为挤时间做视频而崩溃。</text>
+        </view>
+      </view>
+      <view class="glass-card">
+        <view class="card-icon icon-emerald"><text>💰</text></view>
+        <view class="card-content">
+          <text class="card-title">成本低，效果专业</text>
+          <text class="card-desc">享受"物美价廉"的智能服务。用极低的成本，获得持续、专业的内容产出。</text>
+        </view>
+      </view>
+      <view class="glass-card">
+        <view class="card-icon icon-orange"><text>🛡️</text></view>
+        <view class="card-content">
+          <text class="card-title">有保障，全程无忧</text>
+          <text class="card-desc">提供清晰的服务明细与售后保障，定期反馈数据，并可每月调整生成方向。</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 核心功能与服务明细 -->
+  <view class="section features-section">
+    <view class="section-header">
+      <view class="section-bar"></view>
+      <text class="section-title">核心功能与服务明细</text>
+    </view>
+    <view class="features-container">
+      <view class="feature-group">
+        <view class="feature-banner banner-blue">
+          <view class="banner-bg"></view>
+          <view class="banner-overlay"></view>
+          <view class="banner-content">
+            <text class="feature-tag tag-blue">FEATURE 01</text>
+            <text class="feature-title">智能创作，全包服务</text>
+          </view>
+        </view>
+        <view class="feature-list">
+          <view class="feature-item">
+            <text class="check-icon check-blue">✓</text>
+            <text class="feature-text">AI自动抓取并整合当日热点信息。</text>
+          </view>
+          <view class="feature-item">
+            <text class="check-icon check-blue">✓</text>
+            <text class="feature-text">自动生成视频脚本、字幕、素材，支持内容自定义。</text>
+          </view>
+          <view class="feature-item">
+            <text class="check-icon check-blue">✓</text>
+            <text class="feature-text">彻底解决"写脚本、剪辑耗时3小时+"的痛点。</text>
+          </view>
+        </view>
+      </view>
+      <view class="feature-group">
+        <view class="feature-banner banner-indigo">
+          <view class="banner-bg"></view>
+          <view class="banner-overlay"></view>
+          <view class="banner-content">
+            <text class="feature-tag tag-indigo">FEATURE 02</text>
+            <text class="feature-title">自动运营，无人值守</text>
+          </view>
+        </view>
+        <view class="feature-list">
+          <view class="feature-item">
+            <text class="check-icon check-indigo">✓</text>
+            <text class="feature-text">设定后即可全自动每日定时生成视频。</text>
+          </view>
+          <view class="feature-item">
+            <text class="check-icon check-indigo">✓</text>
+            <text class="feature-text">视频自动同步发布至您的各大自媒体账号。</text>
+          </view>
+          <view class="feature-item">
+            <text class="check-icon check-indigo">✓</text>
+            <text class="feature-text">真正实现"无需插手"，账号持续活跃。</text>
+          </view>
+        </view>
+      </view>
+      <view class="feature-group">
+        <view class="feature-banner banner-teal">
+          <view class="banner-bg"></view>
+          <view class="banner-overlay"></view>
+          <view class="banner-content">
+            <text class="feature-tag tag-teal">FEATURE 03</text>
+            <text class="feature-title">灵活定制，持续优化</text>
+          </view>
+        </view>
+        <view class="feature-list">
+          <view class="feature-item">
+            <text class="check-icon check-teal">✓</text>
+            <text class="feature-text">每月可调整视频生成方向，紧跟账号成长与领域变化。</text>
+          </view>
+          <view class="feature-item">
+            <text class="check-icon check-teal">✓</text>
+            <text class="feature-text">定期反馈播放、互动等数据信息，让效果看得见。</text>
+          </view>
+          <view class="feature-item">
+            <text class="check-icon check-teal">✓</text>
+            <text class="feature-text">服务流程透明，价格清晰，无隐藏套路。</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部品牌展示（不影响功能） -->
+  <brand-footer />
+</view>
+
+<!-- 全局可拖动客服悬浮按钮 -->
+<floating-cs />

@@ -1,0 +1,45 @@
+<scroll-view class="page" scroll-y>
+  <view class="container">
+    <!-- 顶部标题区 -->
+    <view class="header">
+      <text class="header-title">AI智能体服务平台</text>
+      <text class="header-subtitle">探索AI的无限可能</text>
+    </view>
+
+    <!-- AI图片与AI视频板块 -->
+    <view class="section">
+      <view class="card-grid grid-4">
+        <service-card
+          wx:for="{{imageVideoServices}}"
+          wx:key="id"
+          title="{{item.title}}"
+          description="{{item.description}}"
+          image="{{item.image}}"
+          data-item="{{item}}"
+          bindtap="onServiceTap"
+        />
+      </view>
+    </view>
+
+    <!-- AI人工智能应用板块 -->
+    <view class="section">
+      <view class="card-grid grid-4">
+        <service-card
+          wx:for="{{aiServices}}"
+          wx:key="id"
+          title="{{item.title}}"
+          description="{{item.description}}"
+          image="{{item.image}}"
+          data-item="{{item}}"
+          bindtap="onServiceTap"
+        />
+      </view>
+    </view>
+
+    <!-- 页脚 -->
+    <footer />
+  </view>
+</scroll-view>
+
+<!-- 全局可拖动客服悬浮按钮 -->
+<floating-cs />

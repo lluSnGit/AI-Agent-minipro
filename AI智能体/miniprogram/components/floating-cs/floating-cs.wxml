@@ -1,0 +1,20 @@
+<movable-area class="cs-float-area">
+  <movable-view
+    class="cs-float"
+    direction="all"
+    damping="40"
+    friction="8"
+    x="{{x}}"
+    y="{{y}}"
+    bindchange="onMove"
+    bindtap="onTap"
+  >
+    <view class="cs-float-inner">
+      <view class="cs-float-badge">AI</view>
+      <text class="cs-float-icon">💬</text>
+      <text class="cs-float-text">智能客服</text>
+    </view>
+  </movable-view>
+</movable-area>
+
+

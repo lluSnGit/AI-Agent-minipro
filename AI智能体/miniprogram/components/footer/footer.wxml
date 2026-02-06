@@ -1,0 +1,28 @@
+<view class="footer">
+  <view class="footer-main">
+    <view class="footer-brand">
+      <text class="brand-name">星瀚云链</text>
+      <text class="brand-desc">专注AI智能体开发</text>
+    </view>
+    <view class="footer-links">
+      <view class="link-group">
+        <text class="group-title">项目</text>
+        <text class="link-item">AI图片</text>
+        <text class="link-item">AI视频</text>
+        <text class="link-item">智能体</text>
+      </view>
+      <view class="link-group">
+        <text class="group-title">支持</text>
+        <text class="link-item">联系我们</text>
+      </view>
+      <view class="link-group">
+        <text class="group-title">法律</text>
+        <text class="link-item">隐私政策</text>
+        <text class="link-item">服务条款</text>
+      </view>
+    </view>
+  </view>
+  <view class="footer-bottom">
+    <text class="copyright">© 星瀚云链数字科技（重庆）有限公司 版权所有</text>
+  </view>
+</view>

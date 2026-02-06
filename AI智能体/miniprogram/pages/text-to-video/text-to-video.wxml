@@ -1,0 +1,183 @@
+<view class="container">
+  <!-- 登录提示 -->
+  <view class="login-tip" wx:if="{{!isLoggedIn}}">
+    <view class="login-tip-content">
+      <text>请先登录或输入Token才能使用文生视频功能</text>
+      <view class="login-options">
+        <button class="login-btn-small" bindtap="goToLogin">去登录</button>
+        <button class="token-btn-small" bindtap="toggleTokenInput">输入Token</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 已登录但可能token无效的提示 -->
+  <view class="login-tip warning" wx:if="{{isLoggedIn && accessToken.length < 50}}">
+    <view class="login-tip-content">
+      <text>当前Token可能无效，建议重新登录</text>
+      <view class="login-options">
+        <button class="login-btn-small" bindtap="goToLogin">重新登录</button>
+        <button class="token-btn-small" bindtap="clearTokenAndRelogin">清除Token</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- Token输入区域 -->
+  <view class="token-section" wx:if="{{showTokenInput}}">
+    <view class="input-label">Access Token</view>
+    <input 
+      class="token-input" 
+      placeholder="请输入Access Token"
+      value="{{accessToken}}"
+      bindinput="onTokenInput"
+    />
+    <view class="token-actions">
+      <button class="save-token-btn" bindtap="onSaveToken">保存Token</button>
+      <text class="token-hint">输入Token后即可使用文生视频功能</text>
+    </view>
+  </view>
+
+  <!-- 输入区域 -->
+  <view class="input-section">
+    <view class="input-label">请输入视频描述 *</view>
+    <textarea 
+      class="prompt-input" 
+      placeholder="例如：一只可爱的小猫在花园里玩耍，阳光明媚，画面温馨"
+      value="{{prompt}}"
+      bindinput="onPromptInput"
+      maxlength="500"
+      show-confirm-bar="{{false}}"
+      disabled="{{!isLoggedIn}}"
+    />
+    <view class="char-count">{{prompt.length}}/500</view>
+  </view>
+
+  <!-- 视频时长选择 -->
+  <view class="input-section">
+    <view class="input-label">视频时长 *</view>
+    <radio-group class="duration-group" bindchange="onDurationChange">
+      <label class="radio-label">
+        <radio value="150" checked="{{nFrames === 150}}" disabled="{{!isLoggedIn}}" />
+        <text>5秒（10星星）</text>
+      </label>
+      <label class="radio-label">
+        <radio value="300" checked="{{nFrames === 300}}" disabled="{{!isLoggedIn}}" />
+        <text>10秒（20星星）</text>
+      </label>
+    </radio-group>
+  </view>
+
+  <!-- 高级选项 -->
+  <view class="input-section">
+    <view class="input-label">负面提示词（可选）</view>
+    <textarea 
+      class="prompt-input" 
+      placeholder="例如：worst quality, low quality, blurry"
+      value="{{negativePrompt}}"
+      bindinput="onNegativePromptInput"
+      maxlength="500"
+      show-confirm-bar="{{false}}"
+      disabled="{{!isLoggedIn}}"
+    />
+    <view class="char-count">{{negativePrompt.length}}/500</view>
+  </view>
+
+  <view class="input-section">
+    <view class="input-label">随机种子（可选）</view>
+    <input 
+      class="seed-input" 
+      type="number"
+      placeholder="留空则随机生成"
+      value="{{seed}}"
+      bindinput="onSeedInput"
+      disabled="{{!isLoggedIn}}"
+    />
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-section">
+    <button 
+      class="generate-btn {{loading ? 'loading' : ''}}" 
+      bindtap="onGenerate"
+      disabled="{{loading || prompt.length === 0 || !isLoggedIn}}"
+    >
+      {{loading ? '生成中...' : '生成视频'}}
+    </button>
+  </view>
+
+  <!-- 消费信息 -->
+  <view class="cost-info" wx:if="{{cost || balance}}">
+    <text wx:if="{{cost}}">消耗：{{cost}} 星星</text>
+    <text wx:if="{{balance}}" style="margin-left: 20rpx;">余额：{{balance}} 星星</text>
+  </view>
+
+  <!-- 结果展示区域 -->
+  <view class="result-section" wx:if="{{generatedVideos.length > 0 || generatedImages.length > 0}}">
+    <!-- 视频列表 -->
+    <view class="result-title" wx:if="{{generatedVideos.length > 0}}">生成的视频</view>
+    <view 
+      class="video-item" 
+      wx:for="{{generatedVideos}}" 
+      wx:key="index"
+      wx:for-item="video"
+      wx:for-index="videoIndex"
+    >
+      <view class="video-info">
+        <text class="video-filename">{{video.filename || '视频' + (videoIndex + 1)}}</text>
+        <text class="video-node" wx:if="{{video.node_id}}">节点：{{video.node_id}}</text>
+      </view>
+      <video 
+        class="result-video" 
+        src="{{video.url}}" 
+        controls
+        show-center-play-btn="{{true}}"
+        enable-play-gesture="{{true}}"
+      />
+      <view class="result-actions">
+        <button class="action-btn" bindtap="previewVideo" data-index="{{videoIndex}}">预览</button>
+        <button class="action-btn" bindtap="saveVideo" data-index="{{videoIndex}}">保存</button>
+      </view>
+    </view>
+
+    <!-- 图片列表 -->
+    <view class="result-title" wx:if="{{generatedImages.length > 0}}">生成的图片</view>
+    <view 
+      class="image-item" 
+      wx:for="{{generatedImages}}" 
+      wx:key="index"
+      wx:for-item="image"
+      wx:for-index="imageIndex"
+    >
+      <view class="image-info">
+        <text class="image-filename">{{image.filename || '图片' + (imageIndex + 1)}}</text>
+        <text class="image-node" wx:if="{{image.node_id}}">节点：{{image.node_id}}</text>
+      </view>
+      <image 
+        class="result-image" 
+        src="{{image.url}}" 
+        mode="aspectFit"
+        bindtap="previewImage"
+        data-index="{{imageIndex}}"
+      />
+      <view class="result-actions">
+        <button class="action-btn" bindtap="previewImage" data-index="{{imageIndex}}">预览</button>
+        <button class="action-btn" bindtap="saveImage" data-index="{{imageIndex}}">保存</button>
+      </view>
+    </view>
+
+    <view class="result-actions">
+      <button class="action-btn" bindtap="regenerate">重新生成</button>
+    </view>
+  </view>
+
+  <!-- 错误提示 -->
+  <view class="error-message" wx:if="{{errorMessage}}">
+    {{errorMessage}}
+  </view>
+</view>
+
+<!-- 底部品牌展示（不影响功能） -->
+<brand-footer />
+
+<!-- 全局可拖动客服悬浮按钮 -->
+<floating-cs />
+

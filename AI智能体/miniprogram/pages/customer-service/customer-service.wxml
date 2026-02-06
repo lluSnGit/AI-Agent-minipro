@@ -1,0 +1,198 @@
+<view class="container">
+  <!-- Hero Section - 当 directChat 为 true 时隐藏 -->
+  <view class="hero-section" wx:if="{{!directChat}}">
+    <view class="bg-blob blob-1"></view>
+    <view class="bg-blob blob-2"></view>
+    <view class="hero-content">
+      <view class="hero-title">
+        <text class="title-main">AI 智能客服</text>
+        <text class="title-gradient">从"应答工具"到"智能业务员"</text>
+      </view>
+      <text class="hero-desc">具备理解、感知、决策能力的"数字员工"，致力于成为企业的增长引擎。</text>
+    </view>
+  </view>
+
+  <!-- 核心功能卡片 - 当 directChat 为 true 时隐藏 -->
+  <view class="features-section" wx:if="{{!directChat}}">
+    <view class="section-header">
+      <text class="section-title">四大核心能力</text>
+    </view>
+    <view class="features-grid">
+      <!-- Card 1: 懂你 -->
+      <view class="feature-card">
+        <view class="feature-content">
+          <view class="feature-icon icon-blue">💬</view>
+          <view class="feature-info">
+            <view class="feature-header">
+              <text class="feature-title">懂你</text>
+            </view>
+            <text class="feature-subtitle">深度理解，感知情绪</text>
+            <view class="feature-list">
+              <view class="feature-item">
+                <text class="check-icon">✓</text>
+                <text>语义级交互与情感计算</text>
+              </view>
+              <view class="feature-item">
+                <text class="check-icon">✓</text>
+                <text>个性化建议，有温度</text>
+              </view>
+            </view>
+            <view class="feature-solution">
+              <text class="solution-label">解决：</text>
+              <text>告别"听不懂人话"和冰冷回复，精准识别潜在需求。</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- Card 2: 找你 -->
+      <view class="feature-card">
+        <view class="feature-content">
+          <view class="feature-icon icon-indigo">🎯</view>
+          <view class="feature-info">
+            <view class="feature-header">
+              <text class="feature-title">找你</text>
+            </view>
+            <text class="feature-subtitle">主动触达，精准营销</text>
+            <view class="feature-list">
+              <view class="feature-item">
+                <text class="check-icon check-indigo">✓</text>
+                <text>全渠道接入无遗漏</text>
+              </view>
+              <view class="feature-item">
+                <text class="check-icon check-indigo">✓</text>
+                <text>行为轨迹预测与主动服务</text>
+              </view>
+            </view>
+            <view class="feature-solution">
+              <text class="solution-label">解决：</text>
+              <text>不再被动等待，主动挖掘商机，精准分流高价值客户。</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- Card 3: 帮你 -->
+      <view class="feature-card">
+        <view class="feature-content">
+          <view class="feature-icon icon-cyan">⚙️</view>
+          <view class="feature-info">
+            <view class="feature-header">
+              <text class="feature-title">帮你</text>
+            </view>
+            <text class="feature-subtitle">业务闭环，提效降本</text>
+            <view class="feature-list">
+              <view class="feature-item">
+                <text class="check-icon check-cyan">✓</text>
+                <text>自动办理退款、预约等业务</text>
+              </view>
+              <view class="feature-item">
+                <text class="check-icon check-cyan">✓</text>
+                <text>打通 ERP/CRM，自动录入</text>
+              </view>
+            </view>
+            <view class="feature-solution">
+              <text class="solution-label">解决：</text>
+              <text>不仅是"传声筒"，能独立解决业务问题，打破数据孤岛。</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- Card 4: 护你 -->
+      <view class="feature-card">
+        <view class="feature-content">
+          <view class="feature-icon icon-emerald">🛡️</view>
+          <view class="feature-info">
+            <view class="feature-header">
+              <text class="feature-title">护你</text>
+            </view>
+            <text class="feature-subtitle">数据安全，合规风控</text>
+            <view class="feature-list">
+              <view class="feature-item">
+                <text class="check-icon check-emerald">✓</text>
+                <text>企业级全链路加密</text>
+              </view>
+              <view class="feature-item">
+                <text class="check-icon check-emerald">✓</text>
+                <text>自动识别敏感词与违规承诺</text>
+              </view>
+            </view>
+            <view class="feature-solution">
+              <text class="solution-label">解决：</text>
+              <text>杜绝资料泄露与违规承诺，构建企业信任壁垒。</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 该页面仅作展示：开始体验按钮已移除（入口由全局悬浮客服按钮提供） -->
+
+  <!-- 底部品牌展示（不影响功能）- 当 directChat 为 true 时隐藏 -->
+  <brand-footer wx:if="{{!directChat}}" />
+</view>
+
+<!-- 聊天界面弹窗 - 当 directChat 为 true 时全屏显示，否则为弹窗 -->
+<view class="chat-modal {{showChat ? 'show' : ''}} {{directChat ? 'direct-chat' : ''}}" catchtouchmove="preventTouchMove">
+  <view class="chat-container">
+    <!-- 聊天头部 -->
+    <view class="chat-header">
+      <text class="chat-title">AI 智能客服</text>
+      <view class="chat-close" bindtap="onCloseChat">
+        <text class="close-icon">✕</text>
+      </view>
+    </view>
+
+    <!-- 聊天消息列表 -->
+    <scroll-view 
+      class="chat-messages" 
+      scroll-y 
+      scroll-top="{{chatScrollTop}}"
+      scroll-into-view="{{chatMessages.length > 0 ? 'msg-' + (chatMessages.length - 1) : ''}}"
+      enhanced
+      show-scrollbar="{{false}}">
+      <view wx:if="{{chatMessages.length === 0}}" class="chat-empty">
+        <view wx:if="{{!hasToken}}" class="login-gate">
+          <text class="empty-text">首次使用需要登录获取 Token</text>
+          <view class="login-cta" bindtap="onGoLogin">
+            <text class="login-cta-text">去登录</text>
+          </view>
+        </view>
+        <text wx:else class="empty-text">👋 您好！我是 AI 智能客服，有什么可以帮助您的吗？</text>
+      </view>
+      <view 
+        wx:for="{{chatMessages}}" 
+        wx:key="timestamp" 
+        id="msg-{{index}}"
+        class="chat-message {{item.type === 'user' ? 'message-user' : 'message-ai'}}">
+        <view class="message-avatar">
+          <text wx:if="{{item.type === 'user'}}" class="avatar-text">👤</text>
+          <text wx:else class="avatar-text">🤖</text>
+        </view>
+        <view class="message-content">
+          <text class="message-text">{{item.content}}</text>
+        </view>
+      </view>
+    </scroll-view>
+
+    <!-- 输入区域 -->
+    <view class="chat-input-area">
+      <input 
+        class="chat-input" 
+        placeholder="输入您的问题..." 
+        value="{{inputMessage}}"
+        bindinput="onInputChange"
+        confirm-type="send"
+        bindconfirm="onSendMessage"
+        disabled="{{isSending}}" />
+      <view 
+        class="chat-send-btn {{isSending ? 'disabled' : ''}}" 
+        bindtap="onSendMessage">
+        <text wx:if="{{isSending}}" class="send-icon">⏳</text>
+        <text wx:else class="send-icon">➤</text>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 全局可拖动客服悬浮按钮 -->
+<floating-cs />

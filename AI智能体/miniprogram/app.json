@@ -1,0 +1,26 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/login/login",
+    "pages/text-to-image/text-to-image",
+    "pages/multi-image-generate/multi-image-generate",
+    "pages/ai-model/ai-model",
+    "pages/ai-outfit/ai-outfit",
+    "pages/grid-image/grid-image",
+    "pages/text-to-video/text-to-video",
+    "pages/image-to-video/image-to-video",
+    "pages/multi-image-video/multi-image-video",
+    "pages/customer-service/customer-service",
+    "pages/ai-ceo/ai-ceo",
+    "pages/news-broadcast/news-broadcast"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "AI智能体",
+    "navigationBarBackgroundColor": "#ffffff"
+  },
+  "style": "v2",
+  "componentFramework": "glass-easel",
+  "lazyCodeLoading": "requiredComponents"
+}
